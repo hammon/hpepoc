@@ -1,7 +1,51 @@
 group 'michael'
 version '1.0-SNAPSHOT'
 
+
 apply plugin: 'java'
+apply plugin: 'jacoco'
+
+apply plugin: 'sonar-runner'
+
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.jdbc.url", "jdbc:h2:tcp://localhost:9092/sonar"
+        property "sonar.jdbc.driverClassName", "org.h2.Driver"
+        property "sonar.username", "sonar"
+        property "sonar.password", "sonar"
+        property "sonar.projectName", "rmmusic"
+        property "sonar.jacoco.reportPath", "build/jacoco/jacocoTest.exec"
+        property "sonar.java.source property", "1.7"
+    }
+}
+
+jacoco {
+    reportsDir = file("$buildDir/jacoco/jacocoTest.exec")
+}
+
+//apply plugin: 'sonar'
+
+//def sonarServerUrl = "127.0.0.1"
+
+//sonar {
+//    server {
+//        url = "http://$sonarServerUrl:9000"
+//    }
+//    database {
+//        url = "jdbc:h2:tcp://$sonarServerUrl:9092/sonar"  // these are default settings for the in-memory database.  Change if using a persistent DB.
+//        driverClassName = "org.h2.Driver"
+//        username = "sonar"
+//        password = "sonar"
+//    }
+//    project {
+//        name = "Your project name"
+//        version = "0.1" // whatever version you want here.
+//
+//    }
+//}
+
+
 
 sourceCompatibility = 1.7
 
@@ -50,6 +94,8 @@ task buildJar(type: Jar) {
 
 test {
     // enable TestNG support (default is JUnit)
+ //   System.setProperty("sonar.host.url", "http://localhost:9000")
+
     useTestNG()
 
     reports.html.destination = file("$buildDir/reports/test")
@@ -74,5 +120,9 @@ test {
     // listen to standard out and standard error of the test JVM(s)
     onOutput { descriptor, event ->
         logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+    }
+
+    jacoco {
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
     }
 }
