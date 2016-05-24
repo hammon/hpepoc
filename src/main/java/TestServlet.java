@@ -50,7 +50,7 @@ public class TestServlet extends HttpServlet {
             out.print(request.getParameter("content"));
         }
         else{
-            out.print("Hello!");
+            out.print("Hello test content!");
         }
     }
 
