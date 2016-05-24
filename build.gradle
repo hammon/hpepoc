@@ -1,0 +1,78 @@
+group 'michael'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    compile group: 'org.testng', name: 'testng', version: '6.9.10'
+
+    compile 'org.slf4j:slf4j-api:1.7.12'
+
+    compile 'org.slf4j:slf4j-log4j12:1.7.12'
+    compile 'log4j:log4j:1.2.17'
+
+
+    compile 'org.eclipse.jetty:jetty-server:9.2.5.v20141112'
+    compile 'org.eclipse.jetty:jetty-servlet:9.2.5.v20141112'
+
+    compile 'org.json:json:20141113'
+    compile 'commons-io:commons-io:2.4'
+}
+
+task buildJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': 1.0,
+                'Main-Class': 'cli.Horny'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+
+    copy{
+        from 'src/main/resources/log4j.properties'
+        into 'build/log4j.properties'
+    }
+
+
+
+
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+    with jar
+}
+
+test {
+    // enable TestNG support (default is JUnit)
+    useTestNG()
+
+    reports.html.destination = file("$buildDir/reports/test")
+
+
+
+    // show standard out and standard error of the test JVM(s) on the console
+    testLogging.showStandardStreams = true
+
+    // set heap size for the test JVM(s)
+    minHeapSize = "128m"
+    maxHeapSize = "512m"
+
+    // set JVM arguments for the test JVM(s)
+    jvmArgs '-XX:MaxPermSize=256m'
+
+    // listen to events in the test execution lifecycle
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+
+    // listen to standard out and standard error of the test JVM(s)
+    onOutput { descriptor, event ->
+        logger.lifecycle("Test: " + descriptor + " produced standard out/err: " + event.message )
+    }
+}
