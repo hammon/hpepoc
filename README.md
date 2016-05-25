@@ -36,6 +36,25 @@ Refresh SonarQube console at <http://127.0.0.1:9000>
 You will see hpepoc project in the dashboard:
 ![SonarQube projects](sq-projects.png)
 
+Execute ```git diff  master..testContent src/main/java/TestServlet.java```
+
+You will see output similar to this:
+
+```
+diff --git a/src/main/java/TestServlet.java b/src/main/java/TestServlet.java
+index 1dc45e0..121daf1 100644
+--- a/src/main/java/TestServlet.java
++++ b/src/main/java/TestServlet.java
+@@ -50,7 +50,7 @@ public class TestServlet extends HttpServlet {
+             out.print(request.getParameter("content"));
+         }
+         else{
+-            out.print("Hello!");
++            out.print("Hello test content!");
+         }
+     }
+```
+
 Execute ```git checkout testContent```
 
 The testContent branch contains a minor change that causes one of the tests to fail.
