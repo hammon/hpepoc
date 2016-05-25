@@ -2,7 +2,7 @@ package utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.testng.annotations.Test;
+//import org.testng.annotations.Test;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,19 +11,25 @@ import java.util.List;
 
 public class ChangeDetector {
 
-    @Test
-    public void test(){
-        String[] files = getChangedFiles();
+    public static void main(String[] args) {
+        System.out.println("app is running!");
+        ChangeDetector detector = new ChangeDetector();
+
+        String[] files = detector.getChangedFiles();
         for(int i = 0;i < files.length;i++){
-            System.out.println("file: " + files[i]);
+//            System.out.println("file: " + files[i]);
             if(files[i].startsWith("src/main/java/")){
-                Integer[] changedLines = getChangedLines(new File(System.getProperty("user.dir") + "/" + files[i]));
+                Integer[] changedLines = detector.getChangedLines(new File(System.getProperty("user.dir") + "/" + files[i]));
                 for(int j = 0;j < changedLines.length;j++){
-                    System.out.println("Changed line: " + changedLines[j]);
-                    getTestsByLineNumber(files[i],changedLines[j]);
+                    System.out.println(files[i] + " - changed line: " + changedLines[j]);
+                    detector.getTestsByLineNumber(files[i],changedLines[j]);
                 }
             }
         }
+    }
+//    @Test
+    public void test(){
+
     }
 
     public String[] getChangedFiles(){
@@ -80,12 +86,12 @@ public class ChangeDetector {
 
     public void getTestsByLineNumber(String fileName,Integer lineNum){
         HttpUtils http = new HttpUtils();
-        String url = "http://127.0.0.1:9000/api/tests/list?sourceFileKey=michael:hpepoc:testContent:"+
+        String url = "http://127.0.0.1:9000/api/tests/list?sourceFileKey=michael:hpepoc:"+
                 fileName + "&sourceFileLineNumber=" + lineNum;
 
         String res = http.get(url);
 
-        System.out.println(res);
+        //System.out.println(res);
 
         printTests(res);
     }
@@ -97,7 +103,10 @@ public class ChangeDetector {
             JSONArray arrTests = obj.getJSONArray("tests");
             for(int i = 0;i < arrTests.length();i++){
                 JSONObject objTest = arrTests.optJSONObject(i);
+                objTest.remove("stacktrace");
+                objTest.remove("stacktrace");
                 System.out.println( objTest.toString(2));
+
             }
         }
     }

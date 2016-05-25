@@ -52,7 +52,7 @@ public class HttpUtils {
 	public String get(String url){
         responseCode = -1;
 
-        log.info("HttpUtils.get url: " + url);
+        log.debug("HttpUtils.get url: " + url);
         HttpURLConnection connection = null;
 		try {
 			connection = (HttpURLConnection) new URL(url).openConnection();
