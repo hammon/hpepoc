@@ -57,7 +57,9 @@ index 1dc45e0..121daf1 100644
      }
 ```
 Now we want to know which test affected by this change.
+
 In order to do this, run ```gradle executeDetector``` from terminal.
+
 You will see details about test that affected by this change:
 
 ```
