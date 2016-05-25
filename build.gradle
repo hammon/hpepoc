@@ -13,39 +13,17 @@ sonarRunner {
         property "sonar.jdbc.driverClassName", "org.h2.Driver"
         property "sonar.username", "sonar"
         property "sonar.password", "sonar"
-        property "sonar.projectName", "rmmusic"
+        property "sonar.projectName", "hpepoc"
         property "sonar.jacoco.reportPath", "build/jacoco/jacocoTest.exec"
         property "sonar.java.source property", "1.7"
  //       property "sonar.junit.reportsPath", "$buildDir/test-results"
-        property "sonar.branch", "testContent"
+ //       property "sonar.branch", "testContent"
     }
 }
 
 jacoco {
     reportsDir = file("$buildDir/jacoco/jacocoTest.exec")
 }
-
-//apply plugin: 'sonar'
-
-//def sonarServerUrl = "127.0.0.1"
-
-//sonar {
-//    server {
-//        url = "http://$sonarServerUrl:9000"
-//    }
-//    database {
-//        url = "jdbc:h2:tcp://$sonarServerUrl:9092/sonar"  // these are default settings for the in-memory database.  Change if using a persistent DB.
-//        driverClassName = "org.h2.Driver"
-//        username = "sonar"
-//        password = "sonar"
-//    }
-//    project {
-//        name = "Your project name"
-//        version = "0.1" // whatever version you want here.
-//
-//    }
-//}
-
 
 
 sourceCompatibility = 1.7
@@ -88,16 +66,11 @@ task buildJar(type: Jar) {
         into 'build/log4j.properties'
     }
 
-
-
-
     exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
     with jar
 }
 
 test {
-    // enable TestNG support (default is JUnit)
- //   System.setProperty("sonar.host.url", "http://localhost:9000")
 
     useTestNG()
 
@@ -106,14 +79,11 @@ test {
     ignoreFailures = true
 
     // show standard out and standard error of the test JVM(s) on the console
- //   testLogging.showStandardStreams = true
+    testLogging.showStandardStreams = true
 
-
-    // set heap size for the test JVM(s)
     minHeapSize = "128m"
     maxHeapSize = "512m"
 
-    // set JVM arguments for the test JVM(s)
     jvmArgs '-XX:MaxPermSize=256m'
 
     // listen to events in the test execution lifecycle
