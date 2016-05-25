@@ -76,11 +76,11 @@ Note that we still on 'master' branch and did not executed anything on 'testCont
 
 Execute ```git checkout testContent```
 
-The testContent branch contains a minor change that causes one of the tests to fail.
+The 'testContent' branch contains a minor change that causes one of the tests to fail.
 
 Execute ```gradle clean test sonarRunner``` again.
 
-If this stage you will rerun ```gradle executeDetector``` 
+If at this stage you will rerun ```gradle executeDetector``` 
 
 You will see slightly different output:
 ```
@@ -99,6 +99,7 @@ src/main/java/TestServlet.java - changed line: 53
 ```
 
 Coverage by unit test also available from SonarQube UI
+
 ![SonarQube test coverage](sq-test-coverage.png)
 
 
