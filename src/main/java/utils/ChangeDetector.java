@@ -2,8 +2,6 @@ package utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-//import org.testng.annotations.Test;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +10,10 @@ import java.util.List;
 public class ChangeDetector {
 
     public static void main(String[] args) {
-        System.out.println("app is running!");
         ChangeDetector detector = new ChangeDetector();
 
         String[] files = detector.getChangedFiles();
         for(int i = 0;i < files.length;i++){
-//            System.out.println("file: " + files[i]);
             if(files[i].startsWith("src/main/java/")){
                 Integer[] changedLines = detector.getChangedLines(new File(System.getProperty("user.dir") + "/" + files[i]));
                 for(int j = 0;j < changedLines.length;j++){
@@ -27,22 +23,11 @@ public class ChangeDetector {
             }
         }
     }
-//    @Test
-    public void test(){
-
-    }
 
     public String[] getChangedFiles(){
         ProcessUtils cmd = new ProcessUtils();
-
-        System.out.println("work dir: " + System.getProperty("user.dir"));
-
         String res = cmd.exec("git diff --name-only master..testContent",new File(System.getProperty("user.dir")));
-
         String[] arr = res.split("\n");
-
-        //System.out.print(res);
-
         return arr;
     }
 
@@ -51,8 +36,9 @@ public class ChangeDetector {
         System.out.println("getChangedLines: " + file.getAbsolutePath().replace(System.getProperty("user.dir") + "/",""));
 
         ProcessUtils cmd = new ProcessUtils();
-        String res = cmd.exec("git diff -U0 master..testContent " + file.getAbsolutePath().replace(System.getProperty("user.dir") + "/",""),new File(System.getProperty("user.dir")));
-//        System.out.println(res);
+        String res = cmd.exec("git diff -U0 master..testContent "
+                + file.getAbsolutePath().replace(System.getProperty("user.dir") + "/",""),
+                new File(System.getProperty("user.dir")));
 
         List<Integer> changedLines = new ArrayList<Integer>();
 
@@ -77,8 +63,6 @@ public class ChangeDetector {
                 else{
                     changedLines.add(Integer.parseInt(lineB.replace("+","")));
                 }
-
-
             }
         }
         return changedLines.toArray(new Integer[changedLines.size()]);
@@ -90,23 +74,17 @@ public class ChangeDetector {
                 fileName + "&sourceFileLineNumber=" + lineNum;
 
         String res = http.get(url);
-
-        //System.out.println(res);
-
         printTests(res);
     }
 
     void printTests(String str){
         JSONObject obj = new JSONObject(str);
-
         if(obj.has("tests")){
             JSONArray arrTests = obj.getJSONArray("tests");
             for(int i = 0;i < arrTests.length();i++){
                 JSONObject objTest = arrTests.optJSONObject(i);
                 objTest.remove("stacktrace");
-                objTest.remove("stacktrace");
                 System.out.println( objTest.toString(2));
-
             }
         }
     }
