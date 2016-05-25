@@ -54,10 +54,54 @@ index 1dc45e0..121daf1 100644
          }
      }
 ```
+Now we want to know which test affected by this change.
+In order to this, run ```gradle executeDetector``` from terminal.
+
+You will see details about test that affected by this change:
+```
+src/main/java/TestServlet.java - changed line: 53
+{
+  "durationInMs": 22,
+  "fileName": "src/test/java/TestApi.java",
+  "name": "testHello",
+  "fileKey": "michael:hpepoc:src/test/java/TestApi.java",
+  "id": "AVTpHq7X5pffP_9Ci88d",
+  "fileId": "AVTpHqQ35pffP_9Ci86L",
+  "status": "OK",
+  "coveredLines": 32
+}
+```
+
+Note that we still on 'master' branch and did not executed anything on 'testContent' branch.
 
 Execute ```git checkout testContent```
 
 The testContent branch contains a minor change that causes one of the tests to fail.
 
 Execute ```gradle clean test sonarRunner``` again.
+
+If this stage you will rerun ```gradle executeDetector``` 
+
+You will see slightly different output:
+```
+src/main/java/TestServlet.java - changed line: 53
+{
+  "durationInMs": 18,
+  "fileName": "src/test/java/TestApi.java",
+  "name": "testHello",
+  "fileKey": "michael:hpepoc:src/test/java/TestApi.java",
+  "id": "AVTpNXEC5pffP_9Ci88k",
+  "message": "java.lang.AssertionError: expected [Hello!] but found [Hello test content!]",
+  "fileId": "AVTpHqQ35pffP_9Ci86L",
+  "status": "FAILURE",
+  "coveredLines": 32
+}
+```
+
+Coverage by unit test also available from SonarQube UI
+![SonarQube test coverage](sq-test-coverage.png)
+
+
+
+
 
