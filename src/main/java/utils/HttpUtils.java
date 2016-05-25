@@ -1,3 +1,5 @@
+package utils;
+
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -7,7 +9,6 @@ import java.io.*;
 import java.net.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class HttpUtils {
 
@@ -51,7 +52,7 @@ public class HttpUtils {
 	public String get(String url){
         responseCode = -1;
 
-        log.info("HttpUtils.get url: " + url);
+        log.debug("HttpUtils.get url: " + url);
         HttpURLConnection connection = null;
 		try {
 			connection = (HttpURLConnection) new URL(url).openConnection();

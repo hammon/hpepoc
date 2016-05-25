@@ -1,9 +1,10 @@
+package utils;
+
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-import java.util.logging.Logger;
 
 /**
  * Created by malexan on 23/11/2014.

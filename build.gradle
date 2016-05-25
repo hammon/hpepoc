@@ -88,3 +88,7 @@ test {
     }
 }
 
+task executeDetector(type:JavaExec) {
+    main = "utils.ChangeDetector"
+    classpath = sourceSets.main.runtimeClasspath
+}
