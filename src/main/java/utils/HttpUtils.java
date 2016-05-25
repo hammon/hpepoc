@@ -1,3 +1,5 @@
+package utils;
+
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -7,7 +9,6 @@ import java.io.*;
 import java.net.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class HttpUtils {
 

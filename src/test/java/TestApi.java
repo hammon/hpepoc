@@ -1,7 +1,7 @@
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
+import utils.HttpUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
