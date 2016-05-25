@@ -27,6 +27,8 @@ You will see SonarQube main dahboard
 Clone and Run the project
 ------------------------------
 
+The following instructions assume that you have [git](https://git-scm.com/downloads) and [gradle](http://gradle.org/gradle-download/) installed.
+
 Clone the repo ```git clone git@github.com:hammon/hpepoc.git```
 
 Execute ```gradle clean test sonarRunner``` from the project home directory
@@ -55,9 +57,11 @@ index 1dc45e0..121daf1 100644
      }
 ```
 Now we want to know which test affected by this change.
-In order to this, run ```gradle executeDetector``` from terminal.
+
+In order to do this, run ```gradle executeDetector``` from terminal.
 
 You will see details about test that affected by this change:
+
 ```
 src/main/java/TestServlet.java - changed line: 53
 {
