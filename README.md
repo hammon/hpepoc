@@ -27,6 +27,8 @@ You will see SonarQube main dahboard
 Clone and Run the project
 ------------------------------
 
+The following instructions assume that you have [git](https://git-scm.com/downloads) and [gradle](http://gradle.org/gradle-download/) installed.
+
 Clone the repo ```git clone git@github.com:hammon/hpepoc.git```
 
 Execute ```gradle clean test sonarRunner``` from the project home directory
