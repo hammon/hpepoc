@@ -13,10 +13,10 @@ https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-5.5.zip
 
 Unzip the SonarQube distribution (let's say in "C:\sonarqube" or "/etc/sonarqube")
 
-# On Windows, execute:
+On Windows, execute:
 ```C:\sonarqube\bin\windows-x86-xx\StartSonar.bat```
  
-# On other operating system, execute:
+On other operating system, execute:
 ```/etc/sonarqube/bin/[OS]/sonar.sh console```
 
 
